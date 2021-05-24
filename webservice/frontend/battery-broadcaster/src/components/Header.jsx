@@ -9,6 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import { UserRegisterFields } from "./UserRegisterFields";
 import { AuthContext } from "../Helper/Context";
+import { setLocalStorage } from "../Helper/LocalPersistant";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,21 +24,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ButtonAppBar() {
-  const { auth, setAuth } = useContext(AuthContext);
   const { authID, setAuthID } = useContext(AuthContext);
   const classes = useStyles();
   const userAuthenticatedState = false;
   var buttonstr;
   const [aState, setAState] = useState(userAuthenticatedState);
 
+  console.log("context" + authID);
+
   const changeState = () => {
     setAState(!aState);
   };
 
-  console.log(auth["auth"]);
-
   const renderAuthButton = () => {
-    if (auth["auth"] == false) {
+    if (authID == null) {
       console.log("reached");
       if (aState) {
         buttonstr = (
@@ -54,7 +54,17 @@ export default function ButtonAppBar() {
       }
     } else {
       console.log("reached");
-      buttonstr = <Button color="inherit">Logout</Button>;
+      buttonstr = (
+        <Button
+          color="inherit"
+          onClick={() => {
+            setAuthID(null);
+            setLocalStorage("uid", null);
+          }}
+        >
+          Logout
+        </Button>
+      );
     }
 
     return buttonstr;

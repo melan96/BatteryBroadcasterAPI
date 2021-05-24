@@ -5,14 +5,14 @@ import Header from "./components/Header";
 import ButtonAppBar from "./components/Header";
 import { UserRegisterFields } from "./components/UserRegisterFields";
 import { AuthContext } from "./Helper/Context";
+import { getLocalStorage } from "./Helper/LocalPersistant";
 
 const App = () => {
-  const [auth, setAuth] = useState(false);
-  const [authID, setAuthID] = useState(null);
+  const [authID, setAuthID] = useState(getLocalStorage("uid"));
+  console.log("listning...." + authID);
+
   return (
-    <AuthContext.Provider
-      value={{ auth: { auth, setAuth }, authID: { authID, setAuthID } }}
-    >
+    <AuthContext.Provider value={{ authID, setAuthID }}>
       <ButtonAppBar></ButtonAppBar>
     </AuthContext.Provider>
   );
