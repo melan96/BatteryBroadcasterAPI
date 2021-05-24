@@ -37,7 +37,7 @@ export default function ButtonAppBar() {
   };
 
   const renderAuthButton = () => {
-    if (authID == null) {
+    if (authID == null || authID == "null") {
       console.log("reached");
       if (aState) {
         buttonstr = (

@@ -1,18 +1,18 @@
+import Cookies from "universal-cookie";
+
 export function setLocalStorage(key, value) {
   try {
-    window.localStorage.setItem(key, JSON.stringify(value));
-  } catch (e) {
-    // catch possible errors:
-    // https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
-  }
+    const cookies = new Cookies();
+    cookies.set(key, value, { path: "/" });
+  } catch (error) {}
 }
 
-export function getLocalStorage(key, initialValue) {
+export function getLocalStorage(key) {
   try {
-    const value = window.localStorage.getItem(key);
-    return value ? JSON.parse(value) : initialValue;
+    const cookies = new Cookies();
+    console.log("cookie return " + cookies.get(key));
+    return cookies.get(key);
   } catch (e) {
     // if error, return initial value
-    return initialValue;
   }
 }

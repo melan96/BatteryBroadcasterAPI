@@ -38,9 +38,8 @@ const RegisterForm = () => {
                 password: password,
               })
               .then((response) => {
+                setLocalStorage("uid", response.data["_id"]);
                 setAuthID(response.data["_id"]);
-
-                setLocalStorage("uid", authID);
 
                 console.log(
                   "Captured from localstorage" + getLocalStorage("uid")
