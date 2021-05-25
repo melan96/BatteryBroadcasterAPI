@@ -11,7 +11,8 @@ const RegisterForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const notify = () => toast.info("So easyyyyyyy");
+  const notify = (str) => toast.warn(str);
+  const notifySuccess = (str) => toast.success(str);
   return (
     <div>
       <center style={{ marginTop: "60px" }}>
@@ -41,12 +42,23 @@ const RegisterForm = () => {
                 password: password,
               })
               .then((response) => {
-                setLocalStorage("uid", response.data["_id"]);
-                setAuthID(response.data["_id"]);
+                if (response.data.error) {
+                  console.log(response.data.message);
+                  notify(response.data.message);
+                } else {
+                  setLocalStorage("uid", response.data.message["_id"]);
+                  console.log(response.data.message["_id"]);
 
-                console.log(
-                  "Captured from localstorage" + getLocalStorage("uid")
-                );
+                  setAuthID(response.data["_id"]);
+                  notifySuccess(
+                    "successfully registered @" +
+                      response.data.message["username"]
+                  );
+
+                  console.log(
+                    "Captured from localstorage" + getLocalStorage("uid")
+                  );
+                }
               });
 
             console.log(authID);
