@@ -3,12 +3,15 @@ import axios from "axios";
 import { AuthContext } from "../Helper/Context";
 import { TextField, Button } from "@material-ui/core";
 import { getLocalStorage, setLocalStorage } from "../Helper/LocalPersistant";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const RegisterForm = () => {
   const { authID, setAuthID } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const notify = () => toast.info("So easyyyyyyy");
   return (
     <div>
       <center style={{ marginTop: "60px" }}>
@@ -47,12 +50,25 @@ const RegisterForm = () => {
               });
 
             console.log(authID);
+            notify();
           }}
           style={{ color: "white", background: "blue", marginTop: "15px" }}
         >
           Register
         </Button>
       </center>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };

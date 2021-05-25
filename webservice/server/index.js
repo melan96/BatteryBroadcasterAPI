@@ -4,10 +4,12 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const RegisterRouter = require("./routes/register.routes.js");
 const mongoose = require("mongoose");
+const LoginRoute = require("./routes/login.routes.js");
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use("/register", RegisterRouter);
+app.use("/login", LoginRoute);
 
 const PORT = process.env.PORT || 5000;
 
