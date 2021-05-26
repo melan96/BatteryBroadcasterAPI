@@ -4,6 +4,7 @@ import { AuthContext } from "../Helper/Context";
 import { TextField, Button } from "@material-ui/core";
 import { getLocalStorage, setLocalStorage } from "../Helper/LocalPersistant";
 import { ToastContainer, toast } from "react-toastify";
+import { Redirect } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
 const RegisterForm = () => {
@@ -46,18 +47,20 @@ const RegisterForm = () => {
                   console.log(response.data.message);
                   notify(response.data.message);
                 } else {
-                  setLocalStorage("uid", response.data.message["_id"]);
+                  //setLocalStorage("uid", response.data.message["_id"]);
                   console.log(response.data.message["_id"]);
 
-                  setAuthID(response.data["_id"]);
+                  // setAuthID(response.data["_id"]);
                   notifySuccess(
                     "successfully registered @" +
                       response.data.message["username"]
                   );
 
-                  console.log(
-                    "Captured from localstorage" + getLocalStorage("uid")
-                  );
+                  <Redirect to="/login" />;
+
+                  // console.log(
+                  //   "Captured from localstorage" + getLocalStorage("uid")
+                  // );
                 }
               });
 
