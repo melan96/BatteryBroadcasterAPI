@@ -61,6 +61,7 @@ const LoginForm = () => {
                   );
 
                   window.location.reload();
+                  return;
                 }
               });
           }}

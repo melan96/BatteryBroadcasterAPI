@@ -9,6 +9,8 @@ import { getLocalStorage } from "./Helper/LocalPersistant";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
+import BatteryHomeBase from "./components/BatteryHomeBase";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
   const [authID, setAuthID] = useState(getLocalStorage("uid"));
@@ -25,7 +27,7 @@ const App = () => {
           </Route>
 
           <Route exact path="/register">
-            <RegisterForm />
+            <BatteryHomeBase></BatteryHomeBase>
           </Route>
         </Switch>
       </AuthContext.Provider>
