@@ -27,6 +27,10 @@ const App = () => {
           </Route>
 
           <Route exact path="/register">
+            <RegisterForm></RegisterForm>
+          </Route>
+
+          <Route exact path="/dashboard">
             <BatteryHomeBase></BatteryHomeBase>
           </Route>
         </Switch>

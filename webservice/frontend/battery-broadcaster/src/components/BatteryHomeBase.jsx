@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   ProgressBar,
   ListGroupItem,
@@ -7,8 +7,12 @@ import {
   Button,
   Spinner,
 } from "react-bootstrap";
+import { AuthContext } from "../Helper/Context";
+
 const BatteryHomeBase = () => {
-  return (
+  const { authID, setAuthID } = useContext(AuthContext);
+  console.log("access from homebase" + authID);
+  return authID != null ? (
     <div style={{ display: "table", marginRight: "auto", marginLeft: "auto" }}>
       <div style={{ height: "60px" }}></div>
       <Card style={{ width: "35rem" }}>
@@ -76,6 +80,10 @@ const BatteryHomeBase = () => {
         </Card.Body>
       </Card>
       <div style={{ height: "50px" }}></div>
+    </div>
+  ) : (
+    <div>
+      <h1>Error Access</h1>
     </div>
   );
 };

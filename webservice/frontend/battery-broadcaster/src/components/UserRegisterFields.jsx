@@ -4,10 +4,17 @@ import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import { Redirect } from "react-router-dom";
 
-export const UserRegisterFields = ({ stateOFAuth }) => {
+export const UserRegisterFields = ({ stateOFAuth, authID }) => {
+  console.log("header access" + authID);
   return (
     <div>
-      {stateOFAuth ? <Redirect to="/login" /> : <Redirect to="/register" />}
+      {authID != null ? (
+        <Redirect to="/dashboard" />
+      ) : stateOFAuth ? (
+        <Redirect to="/login" />
+      ) : (
+        <Redirect to="/register" />
+      )}
     </div>
   );
 };

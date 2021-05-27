@@ -88,7 +88,7 @@ export default function ButtonAppBar() {
           {renderAuthButton()}
         </Toolbar>
       </AppBar>
-      <UserRegisterFields stateOFAuth={aState} />
+      <UserRegisterFields stateOFAuth={aState} authID={authID} />
     </div>
   );
 }
