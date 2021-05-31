@@ -30,6 +30,8 @@ dependencies:
   flutter_login:
   battery_info:
   waveprogressbar_flutter: "^0.1.2"
+  provider:
+  mongo_dart:
 
 dev_dependencies:
   flutter_test:

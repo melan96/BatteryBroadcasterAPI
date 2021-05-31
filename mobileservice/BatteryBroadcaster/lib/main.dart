@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       
    
-      home: Scaffold(body: LoginScreen(),
+      home: Scaffold(body: LoginStls(),
       backgroundColor: Colors.black),
       debugShowCheckedModeBanner: false,
     );

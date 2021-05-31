@@ -1,3 +1,4 @@
+import 'package:BatteryBroadcaster/controllers/dbconnection.dart';
 import 'package:battery_info/battery_info_plugin.dart';
 import 'package:battery_info/model/android_battery_info.dart';
 import 'package:battery_info/enums/charging_status.dart';
@@ -25,12 +26,19 @@ class _DashboardState extends State<Dashboard> {
    
   }
 
+  Future<Stream<AndroidBatteryInfo>> getBatteryStream() async{
+    Stream.periodic(Duration(seconds: 3), (_){
+      return BatteryInfoPlugin().androidBatteryInfo.asStream();
+    });
+  }
+
 @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
      myFuture = checkingInfo();
+     findUserExist('melan96');
     
   }
   @override
@@ -51,8 +59,8 @@ class _DashboardState extends State<Dashboard> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
   
-                    Text('⚡️BatteryAPI',style: TextStyle(color: Colors.white, fontSize: 25)),
-                    Icon(Icons.supervised_user_circle_sharp,size: 35,color: Colors.amberAccent,)
+                    Text('⚡️BatteryAPI',style: TextStyle(color: Colors.white, fontSize: 16)),
+                    Icon(Icons.supervised_user_circle_sharp,size: 30,color: Colors.amberAccent,)
                   ],
                 ),
               ),
@@ -68,7 +76,7 @@ class _DashboardState extends State<Dashboard> {
                       
                       print(snapshot.data.technology);
 
-                      return snapshot.data.batteryLevel == 100 ? 
+                      return snapshot.data.batteryLevel <= 100 ? 
                         Container(
                           margin: EdgeInsets.only(top: 80.0),
                           child: new Center(
@@ -83,7 +91,7 @@ class _DashboardState extends State<Dashboard> {
                               heightController: new WaterController(),
                               size: new Size (MediaQuery.of(context).size.width*0.7,MediaQuery.of(context).size.width*0.7),
                               textStyle: new TextStyle(
-                                  color:Color(0x15000000),
+                                  color:Colors.white70,
                                   fontSize: 60.0,
 
                                   fontWeight: FontWeight.bold),
@@ -96,7 +104,7 @@ class _DashboardState extends State<Dashboard> {
                  ),
                
                SizedBox(height:40),
-               Text('📦 Info',style: TextStyle(color: Colors.white, fontSize: 25)),
+               Text('📦 Info',style: TextStyle(color: Colors.white, fontSize: 15)),
 SizedBox(height:40),
 
 FutureBuilder<AndroidBatteryInfo>(
@@ -116,13 +124,13 @@ FutureBuilder<AndroidBatteryInfo>(
                   Row(
                     children: [
                       Icon(Icons.military_tech_rounded,color: Colors.white,size: 25,),
-                      Text('Technology',style: TextStyle(fontSize: 18, color: Colors.amberAccent, fontWeight:FontWeight.w100 ),)
+                      Text('Technology',style: TextStyle(fontSize: 12, color: Colors.white, fontWeight:FontWeight.w100 ),)
                     ],
                   ),
                   Row(
                     children: [
                       
-                      Text(snapshot.data.technology.toString(),style: TextStyle(fontSize: 20, color: Colors.greenAccent ),)
+                      Text(snapshot.data.technology.toString(),style: TextStyle(fontSize: 14, color: Colors.greenAccent ),)
                     ],
                   ),
                 ],
@@ -134,20 +142,20 @@ FutureBuilder<AndroidBatteryInfo>(
               
             ),
             Container(
-              width: MediaQuery.of(context).size.width/2.1,
+              width: MediaQuery.of(context).size.width/2.2,
              
               child: Column(
                 children: [
                   Row(
                     children: [
                       Icon(Icons.wifi_tethering_sharp,color: Colors.white,size: 25,),
-                      Text('Status',style: TextStyle(fontSize: 18, color: Colors.amberAccent, fontWeight:FontWeight.w100 ),)
+                      Text('Status',style: TextStyle(fontSize: 12, color: Colors.white, fontWeight:FontWeight.w100 ),)
                     ],
                   ),
                   Row(
                     children: [
             
-                      Text(chargingStatus.elementAt(2), style:TextStyle(fontSize: 20, color: Colors.greenAccent ))
+                      Text(chargingStatus.elementAt(snapshot.data.chargingStatus.index), style:TextStyle(fontSize: 14, color: Colors.greenAccent ))
                     ],
                   ),
                 ],
@@ -174,13 +182,13 @@ FutureBuilder<AndroidBatteryInfo>(
                   Row(
                     children: [
                       Icon(Icons.electrical_services_outlined,color: Colors.white,size: 25,),
-                      Text('Current Now',style: TextStyle(fontSize: 18, color: Colors.amberAccent, fontWeight:FontWeight.w100 ),)
+                      Text('Current Now',style: TextStyle(fontSize: 12, color: Colors.white,fontWeight:FontWeight.w100 ),)
                     ],
                   ),
                   Row(
                     children: [
                       
-                      Text(snapshot.data.currentNow.toString(),style: TextStyle(fontSize: 20, color: Colors.greenAccent ),)
+                      Text(snapshot.data.currentNow.toString(),style: TextStyle(fontSize: 14, color: Colors.greenAccent ),)
                     ],
                   ),
                 ],
@@ -199,13 +207,13 @@ FutureBuilder<AndroidBatteryInfo>(
                   Row(
                     children: [
                       Icon(Icons.thermostat_sharp,color: Colors.white,size: 25,),
-                      Text('Temperature',style: TextStyle(fontSize: 18, color: Colors.amberAccent, fontWeight:FontWeight.w100 ),)
+                      Text('Temperature',style: TextStyle(fontSize: 12, color: Colors.white, fontWeight:FontWeight.w100 ),)
                     ],
                   ),
                   Row(
                     children: [
                       
-                      Text(snapshot.data.temperature.toString()+"C",style: TextStyle(fontSize: 25, color: Colors.greenAccent ),)
+                      Text(snapshot.data.temperature.toString()+"C",style: TextStyle(fontSize: 14, color: Colors.greenAccent ),)
                     ],
                   ),
                 ],
@@ -217,7 +225,12 @@ FutureBuilder<AndroidBatteryInfo>(
       ],
     ) : CircularProgressIndicator();
   }
-)
+),
+
+StreamBuilder<AndroidBatteryInfo>(stream: Stream.periodic(Duration(seconds: 20)).asyncMap((event) => checkingInfo(),), builder: (context,snapshot){
+  return Text(chargingStatus.elementAt(snapshot.data.chargingStatus.index));
+},)
+
         
             
               

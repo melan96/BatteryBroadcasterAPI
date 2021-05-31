@@ -8,6 +8,9 @@ const LoginRoute = require("./routes/login.routes.js");
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+app.get("/", (req, res) => {
+  res.send("hello").status(200);
+});
 app.use("/register", RegisterRouter);
 app.use("/login", LoginRoute);
 

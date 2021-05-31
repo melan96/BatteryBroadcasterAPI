@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const UserModel = require("../../models/usermodel");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const { hashPasswordBc } = require("../passwordhash");
 const { authSchema } = require("../../helper/joivalidation.js");
 
