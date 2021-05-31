@@ -37,7 +37,9 @@ class _DashboardState extends State<Dashboard> {
     
 
     return SafeArea(child: Column(
-        
+
+      
+      
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
             Padding(
@@ -46,43 +48,49 @@ class _DashboardState extends State<Dashboard> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
   
-                  Text('⚡️BatteryAPI',style: TextStyle(color: Colors.white, fontSize: 25),),
+                  Text('BatteryAPI',style: TextStyle(color: Colors.white, fontSize: 25)),
                   Icon(Icons.supervised_user_circle_sharp,size: 35,color: Colors.amberAccent,)
                 ],
               ),
             ),
-            
-           FutureBuilder<AndroidBatteryInfo>(
-                
-                future:  myFuture,
-                // ignore: missing_return
-                builder: (context, snapshot) {
+
+               Container(
+                constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.width*0.7,minWidth: MediaQuery.of(context).size.width*0.7),
+                 child: FutureBuilder<AndroidBatteryInfo>(
                   
-                  print(snapshot.data.technology);
+                  future:  myFuture,
+                  // ignore: missing_return
+                  builder: (context, snapshot) {
+                    
+                    print(snapshot.data.technology);
 
-                  return snapshot.data.batteryLevel == 100 ? 
-                    Container(
-                      margin: EdgeInsets.only(top: 80.0),
-                      child: new Center(
-                        child: new WaveProgressBar(
-                          
-                          flowSpeed: 1.0,
-                          waveDistance:45.0,
-                          waterColor: Colors.green[400],
-                          //strokeCircleColor: Color(0x50e16009),
-                          
-                          percentage: snapshot.data.batteryLevel/100,
-                          heightController: new WaterController(),
-                          size: new Size (MediaQuery.of(context).size.width*0.7,MediaQuery.of(context).size.width*0.7),
-                          textStyle: new TextStyle(
-                              color:Color(0x15000000),
-                              fontSize: 60.0,
+                    return snapshot.data.batteryLevel == 100 ? 
+                      Container(
+                        margin: EdgeInsets.only(top: 80.0),
+                        child: new Center(
+                          child: new WaveProgressBar(
+                            
+                            flowSpeed: 1.0,
+                            waveDistance:45.0,
+                            waterColor: Colors.green[400],
+                            //strokeCircleColor: Color(0x50e16009),
+                            
+                            percentage: snapshot.data.batteryLevel/100,
+                            heightController: new WaterController(),
+                            size: new Size (MediaQuery.of(context).size.width*0.7,MediaQuery.of(context).size.width*0.7),
+                            textStyle: new TextStyle(
+                                color:Color(0x15000000),
+                                fontSize: 60.0,
 
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),):Text('data');
-                }
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),):Text('data');
+                  }
               ),
+               ),
+            
+        
+           
             
         ],
       ),
