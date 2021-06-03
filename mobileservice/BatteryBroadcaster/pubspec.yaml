@@ -32,6 +32,8 @@ dependencies:
   waveprogressbar_flutter: "^0.1.2"
   provider:
   mongo_dart:
+  fluttertoast:
+  shared_preferences:
 
 dev_dependencies:
   flutter_test:
