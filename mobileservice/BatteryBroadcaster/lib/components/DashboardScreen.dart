@@ -89,11 +89,11 @@ class _DashboardState extends State<Dashboard> {
                         constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.width*0.7,minWidth: MediaQuery.of(context).size.width*0.7),
                          child: StreamBuilder<AndroidBatteryInfo>(
                           
-                          stream:  Stream.periodic(Duration(seconds: 120)).asyncMap((event) => checkingInfo()),
+                          stream:  Stream.periodic(Duration(seconds: 1)).asyncMap((event) => checkingInfo()),
                           // ignore: missing_return
                           builder: (context, snapshot) {
                             
-                            print(snapshot.data.currentNow);
+                            print(snapshot.data.voltage);
 
                             return snapshot.data.batteryLevel <= 100 ? 
                               Container(
