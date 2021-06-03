@@ -1,5 +1,7 @@
-import mongoose, { Mongoose } from "mongoose";
-const BatteryInfoSchema = mongoose.Schema({
+const mongoose = require("mongoose");
+const usermodel = require("./usermodel");
+const BatteryInfoSchema = new mongoose.Schema({
+  uid: String,
   technology: String,
   chargingStatus: String,
   currentFlowNow: String,
@@ -10,6 +12,10 @@ const BatteryInfoSchema = mongoose.Schema({
   pluggedStatus: String,
   reamainingEnergy: String,
   volatage: String,
+  timestamp: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model("BatteryInfoModel", BatteryInfoSchema);

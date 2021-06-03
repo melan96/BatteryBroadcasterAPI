@@ -5,6 +5,7 @@ const cors = require("cors");
 const RegisterRouter = require("./routes/register.routes.js");
 const mongoose = require("mongoose");
 const LoginRoute = require("./routes/login.routes.js");
+const BatteryRoute = require("./routes/batteryinfo.routes.js");
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
@@ -13,6 +14,7 @@ app.get("/", (req, res) => {
 });
 app.use("/register", RegisterRouter);
 app.use("/login", LoginRoute);
+app.use("/batteryinfo", BatteryRoute);
 
 const PORT = process.env.PORT || 5000;
 
