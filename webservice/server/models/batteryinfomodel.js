@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Mongoose } from "mongoose";
 const BatteryInfoSchema = mongoose.Schema({
   technology: String,
   chargingStatus: String,
@@ -11,3 +11,5 @@ const BatteryInfoSchema = mongoose.Schema({
   reamainingEnergy: String,
   volatage: String,
 });
+
+module.exports = mongoose.model("BatteryInfoModel", BatteryInfoSchema);
