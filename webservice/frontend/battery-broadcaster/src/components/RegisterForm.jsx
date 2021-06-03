@@ -38,7 +38,7 @@ const RegisterForm = () => {
         <Button
           onClick={() => {
             axios
-              .post("http://localhost:5000/register", {
+              .post("https://batterybroadcaster.herokuapp.com/register", {
                 username: username,
                 password: password,
               })
