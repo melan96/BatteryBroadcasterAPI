@@ -70,11 +70,19 @@ const BatteryHomeBase = () => {
                 <ProgressBar
                   animated
                   now={response["batteryLevel"]}
-                  variant="danger"
+                  variant={
+                    String(response["chargingStatus"]).split(".")[1] ==
+                    "Charging"
+                      ? "success"
+                      : "danger"
+                  }
                 />
                 <br />
                 <center>
-                  <h6>Charging : 46%</h6>
+                  <h6>
+                    {String(response["chargingStatus"]).split(".")[1]} :{" "}
+                    {response["batteryLevel"]}%
+                  </h6>
                 </center>
               </ListGroupItem>
             </ListGroupItem>
@@ -114,7 +122,7 @@ const BatteryHomeBase = () => {
                     <td>{response["volatage"] / 1000} V</td>
                   </tr>
                   <tr>
-                    <td>API Response timestamp : 🌡 </td>
+                    <td>API Response timestamp : ⏱ </td>
                     <td>{response["timestamp"]}</td>
                   </tr>
                 </tbody>

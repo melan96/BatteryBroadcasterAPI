@@ -60,14 +60,15 @@ class _DashboardState extends State<Dashboard> {
 
 
 StreamData() async{
-  Timer.periodic(Duration(seconds:60), (timer) { 
+  Timer.periodic(Duration(seconds:10), (timer) { 
     print('runningg...');
 
 
      checkingInfo().then((snapshot) =>{
+       print(snapshot.batteryLevel),
 
        
-        new BatteryDataStreamer(snapshot.technology, snapshot.chargingStatus.toString(), snapshot.currentNow.toString(), snapshot.temperature.toString(), snapshot.pluggedStatus.toString(), snapshot.chargeTimeRemaining.toString(), snapshot.health, snapshot.pluggedStatus, snapshot.remainingEnergy.toString(), snapshot.voltage.toString()).streamDataToAPI()
+        new BatteryDataStreamer(snapshot.technology, snapshot.chargingStatus.toString(), snapshot.currentNow.toString(), snapshot.temperature.toString(), snapshot.batteryLevel.toString(), snapshot.chargeTimeRemaining.toString(), snapshot.health, snapshot.pluggedStatus, snapshot.remainingEnergy.toString(), snapshot.voltage.toString()).streamDataToAPI()
         
   });
 

@@ -183,6 +183,8 @@ class LoginScreen extends StatelessWidget {
               child: FlatButton(
                 onPressed: () async {
                   if(await _handlesUserLogin()){
+
+                    
                    Navigator.push(
                      context, MaterialPageRoute(builder: (_) => Dashboard()));
 

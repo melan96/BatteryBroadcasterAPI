@@ -7,7 +7,7 @@ class BatteryDataStreamer{
 
 
   String technology;
-  String uid = UserAuth.userAuthID;
+  static String uid ;
   String chargingStatus;
   String currentFlowNow;
   String batteryTemperature;
@@ -21,7 +21,9 @@ class BatteryDataStreamer{
   BatteryDataStreamer(this.technology,this.chargingStatus,this.currentFlowNow,this.batteryTemperature,
   this.batteryLevel,this.chargingTimeRemaining,this.batteryHealth,this.pluggedStatus,this.reamainingEnergy,
   this.volatage){
-    this.uid =UserAuth.userAuthID;
+
+    
+    
   }
 
   
@@ -29,8 +31,13 @@ class BatteryDataStreamer{
   
   streamDataToAPI() async{
 
-    print('Function called');
-    var url = Uri.parse('https://batterybroadcaster.herokuapp.com/batteryinfo/60adc87c1ccc1e055979ff25');
+    
+    await new UserAuth().getUserAuthID().then((value) => {
+      uid = value.toString()
+    });
+
+print('Function called'+uid.toString());
+    var url = Uri.parse('https://batterybroadcaster.herokuapp.com/batteryinfo/'+uid);
     
       
      await http.post(url,headers: {
