@@ -10,12 +10,13 @@ import {
   Jumbotron,
 } from "react-bootstrap";
 import { AuthContext } from "../Helper/Context";
+import audio from "../public_assets/bellringing.mp3";
 
 const BatteryHomeBase = () => {
   const { authID, setAuthID } = useContext(AuthContext);
   const [response, setResponse] = useState({});
-
-  console.log("access from homebase" + authID);
+  const { isPlay, setPlay } = useState(false);
+  const { limits, setLimits } = useState();
 
   const loadData = async () => {};
 
@@ -25,117 +26,124 @@ const BatteryHomeBase = () => {
     )
     .then((res) => {
       setResponse(res.data["message"]);
-      console.log(response["technology"]);
     })
     .catch((err) => {
       console.log(err);
     });
 
+  // const playAudio = () => {
+  //   new Audio(audio).play();
+  // };
+
   return authID != null ? (
     response != null ? (
-      <div
-        style={{ display: "table", marginRight: "auto", marginLeft: "auto" }}
-      >
-        <div style={{ height: "60px" }}></div>
-        <Card style={{ width: "35rem" }}>
-          <Button style={{ backgroundColor: "black" }} disabled>
-            <Spinner
-              as="span"
-              animation="grow"
-              size="sm"
-              role="status"
-              aria-hidden="true"
-              style={{ color: "green" }}
-            />
-            &nbsp;&nbsp; listening to battery ...
-          </Button>
-          <center>
-            <Card.Body>
-              <Card.Title style={{ color: "black", fontSize: "30px" }}>
-                🔋⚡️ BatteryStatus API
-              </Card.Title>
+      <center>
+        <div
+          style={{ display: "table", marginRight: "10px", marginLeft: "10px" }}
+        >
+          <div style={{ height: "60px" }}></div>
 
-              <Card.Text>
-                ReactHooks based full pleaged RESTAPI for monitoring Device
-                battery stats
-              </Card.Text>
-            </Card.Body>
-          </center>
-          <ListGroup className="list-group-flush">
-            <ListGroupItem>
+          <Card style={{ width: "auto" }}>
+            <Button style={{ backgroundColor: "black" }} disabled>
+              <Spinner
+                as="span"
+                animation="grow"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+                style={{ color: "green" }}
+              />
+              &nbsp;&nbsp; listening to battery ...
+            </Button>
+
+            <center>
+              <Card.Body>
+                <Card.Title style={{ color: "black", fontSize: "30px" }}>
+                  🔋⚡️ BatteryStatus API
+                </Card.Title>
+
+                <Card.Text>
+                  ReactHooks based full pleaged RESTAPI for monitoring Device
+                  battery stats
+                </Card.Text>
+              </Card.Body>
+            </center>
+            <ListGroup className="list-group-flush">
               <ListGroupItem>
-                Battery Current Level : {response["batteryLevel"]} 🔌🟢
+                <ListGroupItem>
+                  Battery Current Level : {response["batteryLevel"]} 🔌🟢
+                </ListGroupItem>
+                <ListGroupItem>
+                  <ProgressBar
+                    animated
+                    now={response["batteryLevel"]}
+                    variant={
+                      String(response["chargingStatus"]).split(".")[1] ==
+                      "Charging"
+                        ? "success"
+                        : "danger"
+                    }
+                  />
+                  <br />
+                  <center>
+                    <h6>
+                      {String(response["chargingStatus"]).split(".")[1]} :{" "}
+                      {response["batteryLevel"]}%
+                    </h6>
+                  </center>
+                </ListGroupItem>
+              </ListGroupItem>
+
+              <ListGroupItem>
+                Remaining Charging time : ⏳ {response["chargingTimeRemaining"]}
               </ListGroupItem>
               <ListGroupItem>
-                <ProgressBar
-                  animated
-                  now={response["batteryLevel"]}
-                  variant={
-                    String(response["chargingStatus"]).split(".")[1] ==
-                    "Charging"
-                      ? "success"
-                      : "danger"
-                  }
-                />
-                <br />
-                <center>
-                  <h6>
-                    {String(response["chargingStatus"]).split(".")[1]} :{" "}
-                    {response["batteryLevel"]}%
-                  </h6>
-                </center>
+                Remaining Energy : ⚡️{" "}
+                {(response["reamainingEnergy"] / 1000000) * -1}mAh
               </ListGroupItem>
-            </ListGroupItem>
+              <ListGroupItem>
+                <h6>Additional Information </h6>
+                <br></br>
+                <table>
+                  <tbody>
+                    <tr>
+                      <td>Technology: 📦</td>
+                      <td>{response["technology"]}</td>
+                    </tr>
+                    <tr>
+                      <td>Voltage : ⚡️ </td>
+                      <td> 240V</td>
+                    </tr>
+                    <tr>
+                      <td>Temprature : 🌡 </td>
+                      <td>{response["batteryTemperature"]}</td>
+                    </tr>
+                    <tr>
+                      <td>current electro flow : ⚡️ </td>
+                      <td>{response["currentFlowNow"] * -1} e</td>
+                    </tr>
+                    <tr>
+                      <td>Battery Health : 🩺 </td>
+                      <td>{response["batteryHealth"]}</td>
+                    </tr>
+                    <tr>
+                      <td>Volatage : ⚡️ </td>
+                      <td>{response["volatage"] / 1000} V</td>
+                    </tr>
+                    <tr>
+                      <td>API Response timestamp : ⏱ </td>
+                      <td>{response["timestamp"]}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </ListGroupItem>
+            </ListGroup>
 
-            <ListGroupItem>Remaining Charging time : ⏳ 2h 34min</ListGroupItem>
-            <ListGroupItem>
-              Remaining Energy : ⚡️{" "}
-              {(response["reamainingEnergy"] / 1000000) * -1}mAh
-            </ListGroupItem>
-            <ListGroupItem>
-              <h6>Additional Information </h6>
-              <br></br>
-              <table>
-                <tbody>
-                  <tr>
-                    <td>Technology: 📦</td>
-                    <td>{response["technology"]}</td>
-                  </tr>
-                  <tr>
-                    <td>Voltage : ⚡️ </td>
-                    <td> 240V</td>
-                  </tr>
-                  <tr>
-                    <td>Temprature : 🌡 </td>
-                    <td>{response["batteryTemperature"]}</td>
-                  </tr>
-                  <tr>
-                    <td>current electro flow : ⚡️ </td>
-                    <td>{response["currentFlowNow"] * -1} e</td>
-                  </tr>
-                  <tr>
-                    <td>Battery Health : 🩺 </td>
-                    <td>{response["batteryHealth"]}</td>
-                  </tr>
-                  <tr>
-                    <td>Volatage : ⚡️ </td>
-                    <td>{response["volatage"] / 1000} V</td>
-                  </tr>
-                  <tr>
-                    <td>API Response timestamp : ⏱ </td>
-                    <td>{response["timestamp"]}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </ListGroupItem>
-          </ListGroup>
-          <Card.Body>
-            <Card.Link href="#">set reminder 🔔 </Card.Link>
-            <Card.Link href="#">Force Reload</Card.Link>
-          </Card.Body>
-        </Card>
-        <div style={{ height: "50px" }}></div>
-      </div>
+            <div style={{ height: "50px" }}></div>
+            <Button> Set Reminder </Button>
+          </Card>
+        </div>
+      </center>
     ) : (
       <Jumbotron style={{ height: "500px" }}>
         <h1>Hello, Welome to BatteryAPI </h1>

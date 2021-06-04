@@ -11,6 +11,7 @@ import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 import BatteryHomeBase from "./components/BatteryHomeBase";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
   const [authID, setAuthID] = useState(getLocalStorage("uid"));
