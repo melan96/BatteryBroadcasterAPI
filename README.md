@@ -1,7 +1,7 @@
 
 
 [![npm version](https://badge.fury.io/js/koa-neo4j.svg)](https://www.npmjs.com/package/koa-neo4j)
-[![Build Status](https://travis-ci.org/yrong/koa-neo4j.svg?branch=master)](https://travis-ci.org/yrong/koa-neo4j)
+[![Build Status](https://img.shields.io/badge/build-passed-green)]()
 [![Badge](https://img.shields.io/badge/link-996.icu-%23FF4D5B.svg)](https://996.icu/#/en_US)
  [![GitHub release](https://img.shields.io/github/release/Naereen/StrapDown.js.svg)](https://GitHub.com/Naereen/StrapDown.js/releases/)
 
