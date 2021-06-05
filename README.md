@@ -1,9 +1,10 @@
 
-
 [![npm version](https://badge.fury.io/js/koa-neo4j.svg)](https://www.npmjs.com/package/koa-neo4j)
 [![Build Status](https://img.shields.io/badge/build-passed-green)]()
 [![Badge](https://img.shields.io/badge/link-996.icu-%23FF4D5B.svg)](https://996.icu/#/en_US)
  [![GitHub release](https://img.shields.io/github/release/Naereen/StrapDown.js.svg)](https://GitHub.com/Naereen/StrapDown.js/releases/)
+
+
 
 # BatteryBroadcasterAPI🚀
 
@@ -91,7 +92,7 @@ app.listen(3000, function() {
 });
 ```
 
-### Defining an API
+### Defining an API 👨‍🏫
 
 An API is defined by at least three keys:
 
@@ -129,4 +130,81 @@ RETURN a
 
 
 
-### Authentication
+### Authentication 🔐
+
+Authentication is facilitated through [JSON web token](https://github.com/auth0/node-jsonwebtoken), all it takes to
+have authentication in your app is to supplement `Authentication config object` either with `authentication` key
+when initiating the app instance or in `configureAuthentication` method:
+
+
+When authentication is configured, you can access it by sending a POST request to the route you specified. Pass a
+JSON object to e.g. `/login` or `/register` in the following form:
+
+```json
+{
+  "username": "<user_name>",
+  "password": "<user_password_or_hash>",
+  "remember": true
+}
+```
+
+![Invoking Authentication](https://i.ibb.co/KFXf0WT/Screenshot-2021-06-05-at-18-41-39.png "Invoking Authentication")
+
+Note that if you don't set `"remember": true`, the generated token expires in an hour.
+
+Returned object contains a `token` which should be supplemented as `Authorization` header
+in subsequent calls to routes that have `allowedRoles` protection.
+
+
+## CoreBatteryAPI Definitions🚀
+
+The battery info stats were mainly built on native javascript stack to handle multiple request and response without blocking application runtime. The API framework mainly implemented on asynchronus database accessing protocols.
+
+CoreBatteryAPI Request has following major definitions
+
+| definition          | descriptive information                                                                                           | api_key             | dataype |
+|---------------------|-------------------------------------------------------------------------------------------------------------------|---------------------|---------|
+| batteryLevel        | Indicates the current battery percentage. default decleration based on %                                          | batteryLevel        | int     |
+| chargeTimeRemaining | Indicates the remaining milliseconds to  `batteryLevel` == 100                                                    | chargeTimeRemaining | String  |
+| chargingStatus      | Define the current charging mode. ` chargingStatus.charging, chargingStatus.discharging, chargingStatus.unknown ` | chargingStatus      | String  |
+| currentAverage      | Current electro-flow intake average                                                                               | currentAverage      | Double  |
+| currentNow          | Electro-flow which inbounds to battery                                                                            | currentElectroFlow  | Double  |
+| health              | Battery Health parameter status 🩺👨‍⚕️                                                                               | battery_health      | String  |
+| pluggledStatus      | Defines the boolean True for 🔌plugged                                                                             | pluggedStatus       | boolean |
+| remainingEnergy     | Defines the remaining capacity                                                                                    | remainingEnergy     | String  |
+| scale               | Battery scale based on battery Level (default :100)                                                               | scale               | int     |
+| technology          | Used technology for designing battery by manufacutres.                                                            | technology          | String  |
+| temperature         | Current battery internal temperature 🌡🤒                                                                           | temperature         | int     |
+| voltage             | Charging voltage ⚡️                                                                                                | voltage             | String  |
+|                     |                                                                                                                   |                     |         |
+
+
+#### API Requests [battery_info] 🔋
+
+
+The battery post requests were exposed for authenticated users.(for authentication read chapter #authentication). Once the user properly authenticated, user has a `uid` with long random unique charset. for post a request. client should provide details on POST body
+
+`https://batterybroadcaster.herokuapp.com/batteryinfo/[uid]` `` --POST``
+
+```json
+{
+        "uid": "60adc87c1ccc1e055979ff25",
+        "technology": "Li-ion",
+        "chargingStatus": "ChargingStatus.Charging",
+        "currentFlowNow": "253753",
+        "batteryTemperature": "30",
+        "batteryLevel": "100",
+        "chargingTimeRemaining": "0",
+        "batteryHealth": "heath_good",
+        "pluggedStatus": "AC",
+        "reamainingEnergy": "-2147483648",
+        "volatage": "4423",
+}
+```
+
+![Invoking Authentication](https://i.ibb.co/jJbJWCQ/Screenshot-2021-06-05-at-19-19-02.png "Invoking Authentication")
+
+
+## License
+
+[Anti-996 License](https://github.com/996icu/996.ICU/blob/master/LICENSE)
