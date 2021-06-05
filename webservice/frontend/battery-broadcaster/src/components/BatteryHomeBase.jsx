@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, Component } from "react";
 import {
   ProgressBar,
   ListGroupItem,
@@ -15,27 +15,62 @@ import audio from "../public_assets/bellringing.mp3";
 const BatteryHomeBase = () => {
   const { authID, setAuthID } = useContext(AuthContext);
   const [response, setResponse] = useState({});
+
   const { isPlay, setPlay } = useState(false);
   const { limits, setLimits } = useState();
 
   const loadData = async () => {};
 
-  axios
-    .get(
-      "https://batterybroadcaster.herokuapp.com/batteryinfo/getlatest/" + authID
-    )
-    .then((res) => {
-      setResponse(res.data["message"]);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  // const app = setInterval(async () => {
+  //   // axios
+  //   //   .get(
+  //   //     "https://batterybroadcaster.herokuapp.com/batteryinfo/getlatest/" +
+  //   //       authID
+  //   //   )
+  //   //   .then((res) => {
+  //   //     setResponse(res.data["message"]);
+  //   //   })
+  //   //   .catch((err) => {
+  //   //     console.log(err);
+  //   //   }, 10);
+  //   console.log("api call" + Date.now());
+  // }, 1000000);
+  React.useEffect(() => {
+    let unmounted = false;
+    setInterval(
+      (function mapper() {
+        console.log("Logs every minute");
+        axios
+          .get(
+            "https://batterybroadcaster.herokuapp.com/batteryinfo/getlatest/" +
+              authID
+          )
+          .then((res) => {
+            if (!unmounted) {
+              setResponse(res.data["message"]);
+              console.log("rummoing");
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        return mapper;
+      })(),
+      10000
+    );
+    return () => {
+      unmounted = true;
+    };
+  }, []);
+
+  // return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
 
   // const playAudio = () => {
   //   new Audio(audio).play();
   // };
 
   return authID != null ? (
+    (console.log("blaaaaah ====>" + response["message"]),
     response != null ? (
       <center>
         <div
@@ -155,7 +190,7 @@ const BatteryHomeBase = () => {
           <Button variant="primary">View SourceCode of API </Button>
         </p>
       </Jumbotron>
-    )
+    ))
   ) : (
     <div>
       <h1>Error Access</h1>
