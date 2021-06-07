@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const LoginRoute = require("./routes/login.routes.js");
 const BatteryRoute = require("./routes/batteryinfo.routes.js");
 const app = express();
+require("dotenv").config();
 app.use(cors());
 app.use(bodyParser.json());
 app.get("/", (req, res) => {
@@ -18,12 +19,9 @@ app.use("/batteryinfo", BatteryRoute);
 
 const PORT = process.env.PORT || 5000;
 
-mongoose.connect(
-  "mongodb+srv://root:toor@cluster0.rpbhq.mongodb.net/BatteryBroadcasterCluster?retryWrites=true&w=majority",
-  (err) => {
-    console.log(err.message);
-  }
-);
+mongoose.connect(process.env.MONGO_DB_URL, (err) => {
+  console.log(err.message);
+});
 
 app.listen(PORT, () => {
   console.log("app listen on port " + PORT);
