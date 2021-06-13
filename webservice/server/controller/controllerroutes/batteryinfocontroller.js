@@ -31,3 +31,20 @@ exports.batteryRoutePost = async (req, res) => {
         .status(400);
     });
 };
+
+//Code module for get an instance by specific idset
+exports.getBySpecificID = async (req, res) => {
+  console.log("Request captured with ID " + req.params.id);
+  try {
+    await batteryinfomodel.find({ uid: req.params.id }, (err, docs) => {
+      if (err) {
+        res.send({ error: true, message: err.message }).status(400);
+        res.end();
+      } else {
+        res.send({ error: false, message: docs }).status(200);
+      }
+    });
+  } catch (ex) {
+    res.send({ error: true, message: ex.message }).status(400);
+  }
+};
