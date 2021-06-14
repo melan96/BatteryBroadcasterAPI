@@ -2,7 +2,6 @@ const batteryinfomodel = require("../../models/batteryinfomodel");
 
 exports.batteryRoutePost = async (req, res) => {
   //creating a method for call post instance in seperate file
-  await console.log(req.body);
 
   const batteryInfoDump = await new batteryinfomodel({
     uid: req.params.id,
@@ -21,11 +20,9 @@ exports.batteryRoutePost = async (req, res) => {
   await batteryInfoDump
     .save()
     .then((message) => {
-      console.log(message);
       res.send({ message: message, error: false }).status(200);
     })
     .catch((err) => {
-      console.log(err);
       res
         .send({ message: "internal server error occured", error: true })
         .status(400);
@@ -34,7 +31,6 @@ exports.batteryRoutePost = async (req, res) => {
 
 //Code module for get an instance by specific idset
 exports.getBySpecificID = async (req, res) => {
-  console.log("Request captured with ID " + req.params.id);
   try {
     await batteryinfomodel.find({ uid: req.params.id }, (err, docs) => {
       if (err) {
@@ -52,7 +48,6 @@ exports.getBySpecificID = async (req, res) => {
 //get specific resource latest /ID
 
 exports.getLatestResource = async (req, res) => {
-  console.log("Request captured with ID " + req.params.id);
   try {
     await batteryinfomodel
       .findOne({ uid: req.params.id })

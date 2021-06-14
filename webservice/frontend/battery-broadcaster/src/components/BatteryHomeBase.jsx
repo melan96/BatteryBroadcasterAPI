@@ -21,25 +21,12 @@ const BatteryHomeBase = () => {
 
   const loadData = async () => {};
 
-  // const app = setInterval(async () => {
-  //   // axios
-  //   //   .get(
-  //   //     "https://batterybroadcaster.herokuapp.com/batteryinfo/getlatest/" +
-  //   //       authID
-  //   //   )
-  //   //   .then((res) => {
-  //   //     setResponse(res.data["message"]);
-  //   //   })
-  //   //   .catch((err) => {
-  //   //     console.log(err);
-  //   //   }, 10);
-  //   console.log("api call" + Date.now());
-  // }, 1000000);
+  
   React.useEffect(() => {
     let unmounted = false;
     setInterval(
       (function mapper() {
-        console.log("Logs every minute");
+       
         axios
           .get(
             "https://batterybroadcaster.herokuapp.com/batteryinfo/getlatest/" +
@@ -48,11 +35,11 @@ const BatteryHomeBase = () => {
           .then((res) => {
             if (!unmounted) {
               setResponse(res.data["message"]);
-              console.log("rummoing");
+              
             }
           })
           .catch((err) => {
-            console.log(err);
+            
           });
         return mapper;
       })(),
@@ -70,7 +57,7 @@ const BatteryHomeBase = () => {
   // };
 
   return authID != null ? (
-    (console.log("blaaaaah ====>" + response["message"]),
+    
     response != null ? (
       <center>
         <div

@@ -30,15 +30,12 @@ export default function ButtonAppBar() {
   var buttonstr;
   const [aState, setAState] = useState(userAuthenticatedState);
 
-  console.log("context" + authID);
-
   const changeState = () => {
     setAState(!aState);
   };
 
   const renderAuthButton = () => {
     if (authID == null || authID == "null") {
-      console.log("reached");
       if (aState) {
         buttonstr = (
           <Button color="inherit" onClick={changeState}>
@@ -53,7 +50,6 @@ export default function ButtonAppBar() {
         );
       }
     } else {
-      console.log("reached");
       buttonstr = (
         <Button
           color="inherit"
