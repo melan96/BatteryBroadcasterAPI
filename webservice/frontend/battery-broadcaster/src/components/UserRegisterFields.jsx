@@ -5,7 +5,6 @@ import RegisterForm from "./RegisterForm";
 import { Redirect } from "react-router-dom";
 
 export const UserRegisterFields = ({ stateOFAuth, authID }) => {
-  console.log("header access" + authID);
   return (
     <div>
       {authID != null ? (

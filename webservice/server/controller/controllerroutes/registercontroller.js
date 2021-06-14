@@ -9,12 +9,9 @@ exports.RegisterRouteController = async (req, res) => {
 
   try {
     const valuejoi = await authSchema.validateAsync(req.body);
-    console.log(valuejoi);
 
     try {
       const exis = await UserModel.exists({ username: req.body.username });
-
-      console.log("-->" + exis);
 
       if (exis) {
         res
@@ -30,11 +27,9 @@ exports.RegisterRouteController = async (req, res) => {
         await userdump
           .save()
           .then((message) => {
-            console.log(message);
             res.send({ message: message, error: false }).status(200);
           })
           .catch((err) => {
-            console.log(err);
             res
               .send({ message: "internal server error occured", error: true })
               .status(400);

@@ -14,7 +14,6 @@ exports.LoginController = async (req, res) => {
   const userdump = usermodel;
   await userdump.find({ username: username }, async (err, document) => {
     if (err) {
-      console.log(err);
       res
         .send({ message: "cannot find user by given user", error: true })
         .status(422);
@@ -22,7 +21,6 @@ exports.LoginController = async (req, res) => {
     } else {
       try {
         const joiresult = await loginSchema.validateAsync(req.body);
-        console.log(joiresult);
 
         try {
           if (document.length == 0 || document.length == null) {
@@ -35,7 +33,7 @@ exports.LoginController = async (req, res) => {
           } else {
             if (passwordCryptCheck(password, document[0]["password"])) {
               res.send({ message: document, error: false }).status(200);
-              console.log(document[0]);
+              document[0];
               return;
             } else {
               res
@@ -49,7 +47,6 @@ exports.LoginController = async (req, res) => {
             .status(500);
         }
       } catch (error) {
-        console.log(error);
         res.send({ message: error.message, error: true }).status(406);
         return;
       }

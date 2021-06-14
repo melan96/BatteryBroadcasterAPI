@@ -15,72 +15,7 @@ const LoginForm = () => {
   const notify = (str) => toast.warn(str);
   const notifySuccess = (str) => toast.success(str);
   return (
-    // <div>
-    //   <center style={{ marginTop: "60px" }}>
-    //     <TextField
-    //       id="standard-basic"
-    //       onKeyUp={(e) => {
-    //         setUsername(e.target.value);
-    //         console.log(username);
-    //       }}
-    //       label="Login name"
-    //     />
-    //     <br />
-    //     <TextField
-    //       id="standard-basic"
-    //       label="Password"
-    //       onKeyUp={(e) => {
-    //         setPassword(e.target.value);
-    //         console.log(password);
-    //       }}
-    //     />
-    //     <br />
-    //     <Button
-    //       style={{ color: "white", background: "blue", marginTop: "15px" }}
-    //       onClick={() => {
-    //         axios
-    //           .post("https://batterybroadcaster.herokuapp.com/login", {
-    //             username: username,
-    //             password: password,
-    //           })
-    //           .then((response) => {
-    //             if (response.data.error) {
-    //               notify(response.data.message);
-    //             } else {
-    //               setLocalStorage("uid", response.data.message[0]["_id"]);
-    //               console.log(response.data.message[0]["_id"]);
-
-    //               setAuthID(response.data["_id"]);
-    //               notifySuccess(
-    //                 "successfully registered @" +
-    //                   response.data.message[0]["username"]
-    //               );
-
-    //               console.log(
-    //                 "Captured from localstorage" + getLocalStorage("uid")
-    //               );
-
-    //               window.location.reload();
-    //               return;
-    //             }
-    //           });
-    //       }}
-    //     >
-    //       Login
-    //     </Button>
-    //   </center>
-    //   <ToastContainer
-    //     position="top-right"
-    //     autoClose={5000}
-    //     hideProgressBar={false}
-    //     newestOnTop={false}
-    //     closeOnClick
-    //     rtl={false}
-    //     pauseOnFocusLoss
-    //     draggable
-    //     pauseOnHover
-    //   />
-    // </div>
+   
 
     <div classname="maincontainer">
       <div className="container-fluid">
@@ -105,7 +40,7 @@ const LoginForm = () => {
                           className="form-control rounded-pill border-0 shadow-sm px-4"
                           onKeyUp={(e) => {
                             setUsername(e.target.value);
-                            console.log(username);
+                            
                           }}
                         />
                       </div>
@@ -118,7 +53,7 @@ const LoginForm = () => {
                           className="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
                           onKeyUp={(e) => {
                             setPassword(e.target.value);
-                            console.log(password);
+                            
                           }}
                         />
                       </div>
@@ -161,7 +96,7 @@ const LoginForm = () => {
                                   "uid",
                                   response.data.message[0]["_id"]
                                 );
-                                console.log(response.data.message[0]["_id"]);
+                               
 
                                 setAuthID(response.data["_id"]);
                                 notifySuccess(
@@ -169,9 +104,7 @@ const LoginForm = () => {
                                     response.data.message[0]["username"]
                                 );
 
-                                console.log(
-                                  "Captured from localstorage" +
-                                    getLocalStorage("uid")
+                              
                                 );
 
                                 window.location.reload();
