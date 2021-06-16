@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:BatteryBroadcaster/controllers/userauth.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 class BatteryDataStreamer{
@@ -36,8 +37,8 @@ class BatteryDataStreamer{
       uid = value.toString()
     });
 
-print('Function called'+uid.toString());
-    var url = Uri.parse('https://batterybroadcaster.herokuapp.com/batteryinfo/'+uid);
+
+    var url = Uri.parse(env['HOST_API'].toString()+"/"+uid);
     
       
      await http.post(url,headers: {

@@ -12,7 +12,7 @@ class UserAuth{
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('authID', value);
     var ptemp =  prefs.getString('authID');
-    print('AuthID set pref ==========>' +ptemp.toString() );
+    
 
   }
 

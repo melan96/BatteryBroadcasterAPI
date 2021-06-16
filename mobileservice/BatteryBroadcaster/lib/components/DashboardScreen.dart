@@ -1,14 +1,14 @@
 
 import 'dart:async';
 
-import 'package:BatteryBroadcaster/components/LoginPage.dart';
+
 import 'package:BatteryBroadcaster/controllers/batterydata_streamer.dart';
 import 'package:BatteryBroadcaster/controllers/userauth.dart';
 import 'package:BatteryBroadcaster/helper/HandleServerPersistance.dart';
 import 'package:BatteryBroadcaster/main.dart';
 import 'package:battery_info/battery_info_plugin.dart';
 import 'package:battery_info/model/android_battery_info.dart';
-import 'package:battery_info/enums/charging_status.dart';
+
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -43,7 +43,7 @@ class _DashboardState extends State<Dashboard> {
     setState(() {
        new ServerPersistance().getPersistanceIsEmpty().then((value) => {
 
-         print(value),
+         
 
          if(value == null){
            ServerPersistance().setPersistanceIsEmpty(false),
@@ -61,11 +61,11 @@ class _DashboardState extends State<Dashboard> {
 
 StreamData() async{
   Timer.periodic(Duration(seconds:10), (timer) { 
-    print('runningg...');
+    
 
 
      checkingInfo().then((snapshot) =>{
-       print(snapshot.batteryLevel),
+       
 
        
         new BatteryDataStreamer(snapshot.technology, snapshot.chargingStatus.toString(), snapshot.currentNow.toString(), snapshot.temperature.toString(), snapshot.batteryLevel.toString(), snapshot.chargeTimeRemaining.toString(), snapshot.health, snapshot.pluggedStatus, snapshot.remainingEnergy.toString(), snapshot.voltage.toString()).streamDataToAPI()
@@ -87,7 +87,7 @@ StreamData() async{
         future: UserAuth().getUserAuthID(),
         builder: (context, snapshot) {
 
-              print('[[AuthID]] FROM Shared Preferences :: '+snapshot.data);
+              
 
               return (!(snapshot.data == null)) ? SafeArea(child: SingleChildScrollView(
                     child: Column(
@@ -104,7 +104,7 @@ StreamData() async{
   
                               Text('⚡️BatteryAPI',style: TextStyle(color: Colors.white, fontSize: 16)),
                               GestureDetector(onTap: (){
-                                print('tapped');
+                                
                                 UserAuth().disposeSession();
                                  Fluttertoast.showToast(
         msg: 'Logged out sucessfully .. ',

@@ -7,8 +7,8 @@ class ServerPersistance{
 setPersistanceIsEmpty(bool value) async{
     final prefs = await SharedPreferences.getInstance();
     prefs.setBool('isEnabled', value);
-    var ptemp =  prefs.getBool('isEnabled');
-    print('isEnabled set pref ==========>' +ptemp.toString() );
+   prefs.getBool('isEnabled');
+    
 
   }
 
