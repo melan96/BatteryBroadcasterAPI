@@ -70,9 +70,9 @@ class LoginScreen extends StatelessWidget {
 
       }else{
         UserAuth.userAuthID = await json.decode(response.body)["message"][0]["_id"];
-        print(await json.decode(response.body)["message"][0]["_id"]);
+        
         UserAuth().setUserAuthID(await json.decode(response.body)["message"][0]["_id"]);
-       // print(await UserAuth.userAuthID);
+      
         return true;
       }
   
@@ -103,7 +103,7 @@ class LoginScreen extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    print(this.users);
+    
     return SingleChildScrollView(
     
         child: Column(

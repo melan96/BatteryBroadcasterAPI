@@ -36,7 +36,7 @@ class BatteryDataStreamer{
       uid = value.toString()
     });
 
-print('Function called'+uid.toString());
+
     var url = Uri.parse('https://batterybroadcaster.herokuapp.com/batteryinfo/'+uid);
     
       
