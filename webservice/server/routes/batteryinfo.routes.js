@@ -6,6 +6,7 @@ const {
   getBySpecificID,
   getLatestResource,
 } = require("../controller/controllerroutes/batteryinfocontroller");
+const JWTAuthenticationClient = require("../controller/jwt_authentication");
 
 const BatteryRoute = express.Router();
 
@@ -13,6 +14,10 @@ BatteryRoute.post("/:id", batteryRoutePost);
 
 BatteryRoute.get("/:id", getBySpecificID);
 
-BatteryRoute.get("/getlatest/:id", getLatestResource);
+BatteryRoute.get(
+  "/getlatest/:id",
+  new JWTAuthenticationClient().authEndPointAccess,
+  getLatestResource
+);
 
 module.exports = BatteryRoute;

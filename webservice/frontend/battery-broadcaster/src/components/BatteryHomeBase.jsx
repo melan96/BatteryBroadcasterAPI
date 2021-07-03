@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useState, Component } from "react";
+import React, { useContext, useState } from "react";
 import {
   ProgressBar,
   ListGroupItem,
@@ -28,7 +28,13 @@ const BatteryHomeBase = () => {
         axios
           .get(
             "https://batterybroadcaster.herokuapp.com/batteryinfo/getlatest/" +
-              authID
+              authID,
+            {
+              headers: {
+                authorization:
+                  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1lbGFuOTYiLCJpYXQiOjE2MjUyODg0MjgsImV4cCI6MTYyNTI5MjAyOH0.1hQ_i_T91fisQxWJiF6qOZFwgS6B9F8uTFdimp3gfNI",
+              },
+            }
           )
           .then((res) => {
             if (!unmounted) {
