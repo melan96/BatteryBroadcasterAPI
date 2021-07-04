@@ -6,12 +6,12 @@ import "react-toastify/dist/ReactToastify.css";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 
-import { AuthContext } from "../Helper/Context";
+import { AuthContext, JWTAuthContext } from "../Helper/Context";
 const LoginForm = () => {
   const { authID, setAuthID } = useContext(AuthContext);
+  const { jwtID, setJWTID } = useContext(JWTAuthContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const useHC = useHistory();
 
   const notify = (str) => toast.warn(str);
   const notifySuccess = (str) => toast.success(str);
@@ -95,14 +95,27 @@ const LoginForm = () => {
                                     response.data.message[0]["_id"]
                                   );
 
-                                  setAuthID(response.data["_id"]);
-                                  notifySuccess(
-                                    "successfully registered @" +
-                                      response.data.message[0]["username"]
-                                  );
+                                  setAuthID(response.data.message[0]["_id"]);
+                                  console.log(authID);
+                                  // notifySuccess(
+                                  //   "successfully registered @" +
+                                  //     response.data.message[0]["username"]
+                                  // );
 
-                                  window.location.reload();
-                                  return;
+                                  axios
+                                    .post(
+                                      "https://piatto-auth.herokuapp.com/auth",
+                                      {
+                                        username: username,
+                                      }
+                                    )
+                                    .then((response) => {
+                                      setJWTID(response.data["accessToken"]);
+                                      console.log(
+                                        "captured jwtToken  -----> " + jwtID
+                                      );
+                                    })
+                                    .catch((err) => {});
                                 }
                               });
                           }}

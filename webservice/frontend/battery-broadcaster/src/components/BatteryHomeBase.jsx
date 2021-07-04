@@ -9,17 +9,16 @@ import {
   Spinner,
   Jumbotron,
 } from "react-bootstrap";
-import { AuthContext } from "../Helper/Context";
+import { AuthContext, JWTAuthContext } from "../Helper/Context";
 import audio from "../public_assets/bellringing.mp3";
 
 const BatteryHomeBase = () => {
   const { authID, setAuthID } = useContext(AuthContext);
+  const { jwtID, setJWTID } = useContext(JWTAuthContext);
   const [response, setResponse] = useState({});
 
   const { isPlay, setPlay } = useState(false);
   const { limits, setLimits } = useState();
-
-  const loadData = async () => {};
 
   React.useEffect(() => {
     let unmounted = false;
@@ -31,8 +30,7 @@ const BatteryHomeBase = () => {
               authID,
             {
               headers: {
-                authorization:
-                  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1lbGFuOTYiLCJpYXQiOjE2MjUyODg0MjgsImV4cCI6MTYyNTI5MjAyOH0.1hQ_i_T91fisQxWJiF6qOZFwgS6B9F8uTFdimp3gfNI",
+                authorization: "Bearer " + jwtID,
               },
             }
           )
@@ -51,7 +49,7 @@ const BatteryHomeBase = () => {
     };
   }, []);
 
-  // return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
+  //return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
 
   // const playAudio = () => {
   //   new Audio(audio).play();
