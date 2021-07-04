@@ -3,7 +3,6 @@ import { Button } from "@material-ui/core";
 import { setLocalStorage } from "../Helper/LocalPersistant";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 import { AuthContext, JWTAuthContext } from "../Helper/Context";

@@ -9,7 +9,6 @@ import "react-toastify/dist/ReactToastify.css";
 import "../../src/App.css";
 
 const RegisterForm = () => {
-  const { authID, setAuthID } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 

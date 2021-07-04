@@ -10,15 +10,11 @@ import {
   Jumbotron,
 } from "react-bootstrap";
 import { AuthContext, JWTAuthContext } from "../Helper/Context";
-import audio from "../public_assets/bellringing.mp3";
 
 const BatteryHomeBase = () => {
-  const { authID, setAuthID } = useContext(AuthContext);
-  const { jwtID, setJWTID } = useContext(JWTAuthContext);
+  const { authID } = useContext(AuthContext);
+  const { jwtID } = useContext(JWTAuthContext);
   const [response, setResponse] = useState({});
-
-  const { isPlay, setPlay } = useState(false);
-  const { limits, setLimits } = useState();
 
   React.useEffect(() => {
     let unmounted = false;
@@ -48,12 +44,6 @@ const BatteryHomeBase = () => {
       unmounted = true;
     };
   }, []);
-
-  //return () => clearInterval(interval); // This represents the unmount function, in which you need to clear your interval to prevent memory leaks.
-
-  // const playAudio = () => {
-  //   new Audio(audio).play();
-  // };
 
   return response != null ? (
     <center>
